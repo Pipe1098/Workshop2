@@ -1,62 +1,41 @@
 import java.util.Queue;
 import java.util.Stack;
 
-
 public class HtmlValidator {
 
-	// public static Stack<HtmlTag> isValidHtml(Queue<HtmlTag> tags) {
+    public static Stack<HtmlTag> isValidHtml(Queue<HtmlTag> tags) {
 
-	// 	/* IMPLEMENT THIS METHOD! */
+        Stack<HtmlTag> stack = new Stack<>();
 
-	// 	return null; // this line is here only so this code will compile if you don't modify it
-	// }
-	
+        while (!tags.isEmpty()) {
+            HtmlTag currentTag = tags.remove();
 
-	public static Stack<HtmlTag> isValidHtml(Queue<HtmlTag> tags) {
-
-		Stack<HtmlTag> stack = new Stack<>();
-
-		while (!tags.isEmpty()) {
-			HtmlTag currentTag = tags.remove();
-
-			if (currentTag.isOpenTag()) {
-				stack.push(currentTag);
-			} else if (currentTag.isSelfClosing()) {
+            if (currentTag.isOpenTag()) {
+                stack.push(currentTag);
+            } else if (!currentTag.isSelfClosing()) {
                 if (stack.isEmpty() || !stack.peek().matches(currentTag)) {
                     return null;
                 } else {
-                    stack.pop(); 
-                } 
-            } 
+                    stack.pop();
+                }
+            }
 
-        } 
+        }
 
-        return stack; 
+        return stack;
 
     }
 
-	public static Stack<HtmlTag> isValidHtml(Queue<HtmlTag> tags) {
-
-		Stack<HtmlTag> etiquetas = new Stack<>();
-
-		while(!tags.isEmpty()){
-
-			HtmlTag tag = tags.remove();
-			if(!tag.isSelfClosing()) {
-				if(tag.isOpenTag()) etiquetas.push(tag);
-				else {
-					if(etiquetas.isEmpty()) return null;
-					if(etiquetas.peek().matches(tag)) etiquetas.pop();
-					else return etiquetas;
-				}
-			}
-		}
-		return etiquetas; // this line is here only so this code will compile if you don't modify it
-	}
-
-
+    // Esta función recibe una cola de etiquetas HTML como parámetro y devuelve una
+    // pila de etiquetas HTML.
+    // Si las etiquetas no son válidas, devuelve nulo.
+    // La función itera sobre la cola de etiquetas y comprueba si la etiqueta actual
+    // es una etiqueta de apertura.
+    // Si lo es, se empuja a la pila. Si no lo es, se comprueba si es una etiqueta
+    // auto-cerrada.
+    // Si no lo es, se comprueba si la pila está vacía o si el elemento superior de
+    // la pila coincide con la etiqueta actual.
+    // Si no hay coincidencia, se devuelve nulo; en caso contrario, se saca el
+    // elemento superior de la pila.
 
 }
-
-
-
